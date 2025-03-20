@@ -5,7 +5,7 @@ body {
   background-size: cover;
   height: 15vmax;
   width: 15vmax;
-  z-index: -2;
+  z-index: -4;
 }
 .buttonsHolder {
   position: absolute;
@@ -42,7 +42,7 @@ body {
 }
 
 .marquee2 {
-   /*tank*/
+  /*tank*/
   position: absolute;
   margin-top: 600px;
   margin-left: -105px;
@@ -93,7 +93,7 @@ body {
 }
 
 .axecatSize {
-  width: 175;
+  /*width: 175;*/
   height: 175px;
 }
 
@@ -109,19 +109,49 @@ caption {
   font-weight: 500;
   font-style: normal;
   background-clip: text;
-  background: linear-gradient(180deg,rgb(253, 179, 7), rgb(244, 211, 101));
+  background: linear-gradient(180deg, rgb(253, 179, 7), rgb(244, 211, 101));
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   -webkit-text-stroke-width: 1.2px;
-  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-color: darkorange;
   /*color: linear-gradient(rgb(253, 196, 7), rgb(255, 211, 66));*/
   text-align: center;
- 
+  z-index: 4;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
   /*text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000,
     1px 1px 0 #000000, -2px 0 0 #000000, 2px 0 0 #000000, 0 2px 0 #000000,
     0 -2px 0 #000000;*/
 }
 
+.costText {
+  text-align: right;
+  font-size: 28px;
+  position: absolute;
+  background-clip: text;
+
+  background: linear-gradient(180deg, rgb(253, 179, 7), rgb(244, 211, 101));
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.4px;
+  -webkit-text-stroke-color: black;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  top: 19px;
+  right: 12px;
+  z-index: 4;
+}
 /*
 img:hover {
     transform: scale(0.85);
@@ -129,11 +159,18 @@ img:hover {
 */
 
 img {
+  float: left;
+  z-index: -2;
+  position: relative;
+}
+
+img {
   transition-duration: 0.01s;
 }
 
 img.half {
   transform: scale(0.5);
+  z-index: -2;
 }
 
 .shown {
@@ -142,4 +179,22 @@ img.half {
 
 .hidden {
   display: none;
+}
+
+.buttonStyling {
+  float: left;
+  z-index: -2;
+  position: relative;
+  background-image: url('./caticonpng.png');
+}
+
+.catIconStyling {
+  width: 113px;
+  height: 88px;
+  z-index: 4;
+}
+
+.blinkEffect {
+  color: red;
+  transition: 0.3;
 }

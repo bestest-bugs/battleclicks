@@ -9,7 +9,7 @@
     <link rel="icon" href="./battle_cats_image.png">
     <script>
         var cash = 0;
-        var cashEarned = 14
+        var cashEarned = 13
         var cashCap = 16500
  
         function sleep(ms) {
@@ -19,13 +19,13 @@
         async function incrementValue() {
             if (cash >= cashCap) {
                 cash = cashCap;
-                document.getElementById("cashCount").innerHTML = cash.toString() + " / " + cashCap.toString() + "&#65129";
+                document.getElementById("cashCount").innerHTML = cash.toString() + "¢ / " + cashCap.toString() + "¢";
             }
             else {
                 cash += cashEarned;
                 //console.log(cash)
                 //console.log(document.getElementById("cashCount"))
-                document.getElementById("cashCount").innerHTML = cash.toString() + " / " + cashCap.toString() + "&#65129";
+                document.getElementById("cashCount").innerHTML = cash.toString() + "¢ / " + cashCap.toString() + "¢";
             }
 
         }
@@ -39,7 +39,7 @@
                  // var position = runner.getAttribute("data-position");
                    // let button = document.querySelector('#buttonsHolder').querySelector('#' + child.id)
                     //console.log( , button, child)
-                    spawnGato('#gato' + (parseInt(e.which) - 48), child.id, child.getAttribute("data-value"))
+                    spawnGato('#gato' + (parseInt(e.which) - 48), child.id, child.getAttribute("data-value"), parseInt(e.which))
 
                 }
             }
@@ -55,20 +55,33 @@
 
 <body id="bodyID">
     <div class="buttonsHolder" , id="buttonsHolder">
-        <img id="num49" src="caticonpng.png" onclick="spawnGato('#gato1',  'num49',50)" data-value="50">
-        <img id="num50" src="caticonpng.png" onclick="spawnGato('#gato2', 'num50', 100)" data-value="100">
-        <img id="num51" src="caticonpng.png" onclick="spawnGato('#gato3', 'num51', 150)" data-value="150">
-        <!--gat5, num52-->
-        <!--gat4 52-->
-        <img id="num52" src="caticonpng.png" onclick="spawnGato('#gato4', 'num52', 600)" data-value="600">
-        <!--gat4, num53-->
-        <img id="num53" src="caticonpng.png" onclick="spawnGato('#gato5', 'num53', 1500)" data-value="1500">
+       
+
+        <div id="num49" class="buttonStyling catIconStyling" onclick="spawnGato('#gato1', 'num49', 50, 49)" data-value="50">
+            <p class="costText" id="text49"> ¢50</p>
+        </div>
+
+        <div id="num50" class="buttonStyling catIconStyling" onclick="spawnGato('#gato2', 'num50', 100, 50)" data-value="100">
+            <p class="costText" id="text50"> ¢100</p>
+        </div>
+
+        <div id="num51" class="buttonStyling catIconStyling" onclick="spawnGato('#gato3', 'num51', 150, 51)" data-value="150">
+            <p class="costText" id="text51"> ¢150</p>
+        </div>
+        
+        <div id="num52" class="buttonStyling catIconStyling" onclick="spawnGato('#gato4', 'num52', 600, 52)" data-value="600" >
+            <p class="costText" id="text52"> ¢600</p>
+        </div>
+
+        <div id="num53" class="buttonStyling catIconStyling" onclick="spawnGato('#gato5', 'num53', 1500, 53)" data-value="1500" >
+            <p class="costText" id="text53"> ¢1500</p> 
+        </div>
+      
     </div>
 
     <div class="cashHolder">
-        <p id="cashCount"> 0 / 16500</p>
+        <p id="cashCount"> 0¢ / 16500¢</p>
     </div>
-
 
     <!-- onfinish="javascript:alert('event has been triggered');" -->
     <marquee id="gato1" class="marquee1 hidden" truespeed scrolldelay="70" scrollamount="20px" loop="1">
@@ -83,7 +96,6 @@
         <img class="axecatSize" src="axepng.png">
     </marquee>
 
-   
     <marquee id="gato4" class="marquee4 hidden" truespeed scrolldelay="70" scrollamount="10px" loop="1"> 
         <img class="grosscatSize" src="./grosscatpng.png">
     </marquee>
