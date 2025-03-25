@@ -7,6 +7,11 @@ body {
   width: 15vmax;
   z-index: -4;
 }
+
+#my {
+  zoom: 67%;
+}
+
 .buttonsHolder {
   position: absolute;
   top: 10%;
@@ -185,7 +190,27 @@ img.half {
   float: left;
   z-index: -2;
   position: relative;
+
+}
+
+.catIcon {
   background-image: url('./caticonpng.png');
+}
+
+.tankCatIcon {
+  background-image: url('./tankicon.png');
+}
+
+.axeCatIcon {
+  background-image: url('./axeicon.png');
+}
+
+.grossCatIcon {
+  background-image: url('./grossicon.png');
+}
+
+.kingDragonIcon {
+  background-image: url('./kingdragonicon.png');
 }
 
 .catIconStyling {
