@@ -162,6 +162,10 @@ function activateCheats() {
           newBox.classList.add("opacity-0", "hide")
       }, 2000)
 
+      setTimeout(() => {
+        body.removeChild(newClone)
+      }, 2100)
+
       
       console.log(newBox)
 
