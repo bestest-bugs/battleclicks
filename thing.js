@@ -79,7 +79,7 @@ function upgradeBank() {
       transform: "scale(1.001) rotate(0deg)"
     }, 250);
 
-  } else if (cash < currentBankCost) {
+  } else if (cash < currentBankCost || level >= 8) {
     let button = document.querySelector('#bankButton')//.querySelector('#49')
     let buttonCost = button.querySelector('#bankCost')
 
