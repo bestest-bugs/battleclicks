@@ -291,3 +291,58 @@ img.half {
   color: red;
   transition: 0.3;
 }
+
+/*konomi code stuff*/
+
+
+.w-full {
+  width: 100%;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.size-full {
+  width: 100%;
+  height: 100%;
+}
+
+.f-center {
+  align-self: center;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.animate {
+  transition-duration: 2s;
+  animation: 2s ease-in 0s;
+}
+
+.opacity-1 {
+    opacity: 1;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.left-0 {
+  left: 0;
+}

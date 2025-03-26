@@ -1,3 +1,19 @@
+var allowedKeys = {
+  37: 'left',
+  38: 'up',
+  39: 'right',
+  40: 'down',
+  65: 'a',
+  66: 'b'
+};
+
+// the correct keycode for the konomi code
+var konamiCode = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
+// a value that increments up each time a correct key is pressed
+var konamiCodePosition = 0;
+var konamiCodeActivated = false;
+
+
 function spawnGato(sentId, buttonId, cost, numberSent) {
   console.log(sentId, buttonId)
 
@@ -48,13 +64,11 @@ function spawnGato(sentId, buttonId, cost, numberSent) {
   return
 };
 
-
-
 function upgradeBank() {
   console.log("hello!!")
 
   //console.log("hi")
-  if (cash >= currentBankCost && level < 8) {
+  if (cash >= currentBankCost && level < levelCap) {
     cash -= currentBankCost
     currentBankCost += 560
     level += 1
@@ -67,7 +81,7 @@ function upgradeBank() {
   
     buttonLevel.innerHTML = "Level " + level
     buttonCost.innerHTML = "¢" + currentBankCost
-    if (level >= 8) {
+    if (level >= levelCap) {
       buttonCost.innerHTML = "MAX"
     }
 
@@ -79,7 +93,7 @@ function upgradeBank() {
       transform: "scale(1.001) rotate(0deg)"
     }, 250);
 
-  } else if (cash < currentBankCost || level >= 8) {
+  } else if (cash < currentBankCost || level >= levelCap) {
     let button = document.querySelector('#bankButton')//.querySelector('#49')
     let buttonCost = button.querySelector('#bankCost')
 
@@ -101,3 +115,58 @@ function upgradeBank() {
   }
   return
 };
+
+
+
+document.addEventListener('keydown', function(e) {
+
+  var key = allowedKeys[e.keyCode];
+  var requiredKey = konamiCode[konamiCodePosition];
+
+// incremends a value if the correct keyis pressed in the sequence above, which then resets if an incorrect statement is pressed.
+  if (key == requiredKey) {
+    konamiCodePosition++;
+    if (konamiCodePosition == konamiCode.length) {
+      activateCheats();
+      konamiCodePosition = 0;
+    }
+  } else {
+    konamiCodePosition = 0;
+  }
+});
+
+// does the actual function of changing the background image to a diffrent gradient
+function activateCheats() {
+  
+  if (konamiCodeActivated == false) {
+      konamiCodeActivated = true
+      document.body.style.backgroundImage =  "url('./itfmoonbg.png')"
+
+      var newBox = document.createElement("div")
+      document.body.insertAdjacentElement("afterbegin", newBox)
+      newBox.classList.add("size-full", "fixed", "top-0", "left-0", "opacity-1", "animate")
+      newBox.style.minHeight = "100vh"
+      newBox.style.background = "white"
+      newBox.style.zIndex = "999999999999"
+
+      let button = document.querySelector('#bankButton')//.querySelector('#49')
+      let buttonLevel = button.querySelector('#bankLevel')
+      let buttonCost = button.querySelector('#bankCost')
+
+      levelCap = 999
+     
+      buttonLevel.innerHTML = "Level " + level
+      buttonCost.innerHTML = "¢" + currentBankCost
+
+      setTimeout(() => {
+          newBox.classList.add("opacity-0", "hide")
+      }, 2000)
+
+      
+      console.log(newBox)
+
+      
+
+  }
+ 
+}
