@@ -152,6 +152,7 @@ function activateCheats() {
       let button = document.querySelector('#bankButton')//.querySelector('#49')
       let buttonLevel = button.querySelector('#bankLevel')
       let buttonCost = button.querySelector('#bankCost')
+      let body = document.querySelector('#bodyID')
 
       levelCap = 999
      
@@ -163,8 +164,8 @@ function activateCheats() {
       }, 2000)
 
       setTimeout(() => {
-        body.removeChild(newClone)
-      }, 2100)
+        body.removeChild(newBox)
+      }, 3500)
 
       
       console.log(newBox)
