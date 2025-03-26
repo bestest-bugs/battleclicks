@@ -10,8 +10,10 @@
     <script>
         var cash = 0;
         var cashEarned = 13
-        var cashCap = 16500
- 
+        var currentBankCost = 560
+        var cashCap = 6000
+        var level = 1
+
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
@@ -19,29 +21,30 @@
         async function incrementValue() {
             if (cash >= cashCap) {
                 cash = cashCap;
-                document.getElementById("cashCount").innerHTML = cash.toString() + "¢ / " + cashCap.toString() + "¢";
+                document.getElementById("cashCount").innerHTML = "¢" + cash.toString() + " / ¢"+ cashCap.toString();
             }
             else {
                 cash += cashEarned;
                 //console.log(cash)
                 //console.log(document.getElementById("cashCount"))
-                document.getElementById("cashCount").innerHTML = cash.toString() + "¢ / " + cashCap.toString() + "¢";
+                document.getElementById("cashCount").innerHTML = "¢" + cash.toString() + " / ¢"+ cashCap.toString();
             }
 
         }
         window.addEventListener('keypress', function (e) {
             const buttonHolder = document.getElementById("buttonsHolder")
+            console.log(e, e.which)
+            if (parseInt(e.which) === 113 || parseInt(e.which) === 32 ) {
+                upgradeBank()
+
+            }
+
             for (const child of buttonHolder.children) {
                 let newString = child.id.replace("num", "")
                
                 if (parseInt(e.which) === parseInt(newString)) {
-                   // var objectToFind = FindByAttributeValue('#gato' + (parseInt(e.which) - 48), "cost");//put in the ID here
-                 // var position = runner.getAttribute("data-position");
-                   // let button = document.querySelector('#buttonsHolder').querySelector('#' + child.id)
-                    //console.log( , button, child)
                     spawnGato('#gato' + (parseInt(e.which) - 48), child.id, child.getAttribute("data-value"), parseInt(e.which))
-
-                }
+                }                
             }
         }, false);
 
@@ -80,7 +83,12 @@
     </div>
 
     <div class="cashHolder">
-        <p id="cashCount"> 0¢ / 16500¢</p>
+        <p id="cashCount"> ¢0 / ¢16500</p>
+    </div>
+
+    <div class="upgradeBankButton upgradeButtonIcon" id="bankButton" onclick="upgradeBank()">
+        <p class="bankLevelText" id="bankLevel"> Level 1 </p>
+        <p class="bankCostText" id="bankCost"> ¢560 </p>
     </div>
 
     <!-- onfinish="javascript:alert('event has been triggered');" -->

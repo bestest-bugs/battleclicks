@@ -12,31 +12,7 @@ body {
   zoom: 67%;
 }
 
-.buttonsHolder {
-  position: absolute;
-  top: 10%;
-  left: 5%;
-  margin-top: -50px;
-  margin-left: -50px;
-  width: 100px;
-  height: 100px;
-}
 
-.cashHolder {
-  position: absolute;
-  top: 5%;
-  left: 60%;
-  margin-top: -50px;
-  margin-left: -50px;
-
-  height: 100px;
-}
-
-.cashHolder > p {
-  text-align: right;
-  width: 700px;
-  font-size: 60px;
-}
 .marquee1 {
   /*cat*/
   position: absolute;
@@ -157,6 +133,93 @@ caption {
   right: 12px;
   z-index: 4;
 }
+
+.bankLevelText {
+  text-align: left;
+  font-size: 45px;
+  position: absolute;
+  background-clip: text;
+
+  background: linear-gradient(180deg, rgb(253, 179, 7), rgb(244, 211, 101));
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.8px;
+  -webkit-text-stroke-color: darkblue;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 245px;
+  top: -50%;
+  right: 2.5%;
+  z-index: 4;
+}
+
+.bankCostText {
+  text-align: right;
+  font-size: 60px;
+  position: absolute;
+  background-clip: text;
+
+  background: linear-gradient(180deg, rgb(253, 179, 7), rgb(244, 211, 101));
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 1.2px;
+  -webkit-text-stroke-color: darkblue;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 245px;
+  top: 25%;
+  right: 5%;
+  z-index: 4;
+}
+
+
+
+.buttonsHolder {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  margin-top: -50px;
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
+}
+
+.cashHolder {
+  position: absolute;
+  top: 5%;
+  left: 60%;
+  margin-top: -50px;
+  margin-left: -50px;
+
+  height: 100px;
+}
+
+.cashHolder > p {
+  text-align: right;
+  width: 700px;
+  font-size: 60px;
+}
+
+.upgradeBankButton {
+  position: absolute;
+  z-index: 4;
+  background-size: 250px;
+  top: 75%;
+  left: 2.75%; /*77%*/
+  width: 250px;
+  height: 190px;
+}
+
 /*
 img:hover {
     transform: scale(0.85);
@@ -212,6 +275,11 @@ img.half {
 .kingDragonIcon {
   background-image: url('./kingdragonicon.png');
 }
+
+.upgradeButtonIcon{
+  background-image: url('./bankUpgradeIcon.png');
+}
+
 
 .catIconStyling {
   width: 113px;
