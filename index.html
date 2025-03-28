@@ -9,78 +9,106 @@
     <link rel="icon" href="./battle_cats_image.png">
     <script>
         var cash = 0;
-        var cashEarned = 14
+        var cashEarned = 1
         var currentBankCost = 560
         var cashCap = 6000
         var level = 1
-        var levelCap = 8
 
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-    
+        var levelCap = 8
+        // var generationSpeed = 60
+
+        // increases the amount of money the person currently holds 
         async function incrementValue() {
             if (cash >= cashCap) {
                 cash = cashCap;
-                document.getElementById("cashCount").innerHTML = "¢" + cash.toString() + " / ¢"+ cashCap.toString();
+                document.getElementById("cashCount").innerHTML = "¢" + cash.toString() + " / ¢" + cashCap.toString();
             }
             else {
                 cash += cashEarned;
                 //console.log(cash)
                 //console.log(document.getElementById("cashCount"))
-                document.getElementById("cashCount").innerHTML = "¢" + cash.toString() + " / ¢"+ cashCap.toString();
+                document.getElementById("cashCount").innerHTML = "¢" + cash.toString() + " / ¢" + cashCap.toString();
             }
+        }
+
+        // the whole stuff down here just lets the website generate money even if ur tabbed out lol
+        function gameLoop() {
+            // this is called every millisecond (even when tabbed out)
+            // make sure you only execute game update if enough time has passed
+
+            incrementValue()
+            //let interval = setInterval(() => {
+            //}, generationSpeed);  
+        }
+
+        function createTickWorker() {
+            const fnStr = ["function tick() { postMessage(1); } setInterval(tick, 1);"];
+            const jsBlob = new Blob(fnStr, { type: "text/javascript" });
+            const workerURL = URL.createObjectURL(jsBlob);
+
+            return new Worker(workerURL);
+        }
+
+        function beginGameLoop() {
+            const intervalWorker = createTickWorker();
+
+            intervalWorker.onmessage = gameLoop;
 
         }
+
+        beginGameLoop();
+
+        // listens for keys to hotkey to 
         window.addEventListener('keypress', function (e) {
             const buttonHolder = document.getElementById("buttonsHolder")
             console.log(e, e.which)
-            if (parseInt(e.which) === 113 || parseInt(e.which) === 32 ) {
+            if (parseInt(e.which) === 113 || parseInt(e.which) === 32) {
                 upgradeBank()
 
             }
 
             for (const child of buttonHolder.children) {
                 let newString = child.id.replace("num", "")
-               
+
                 if (parseInt(e.which) === parseInt(newString)) {
                     spawnGato('#gato' + (parseInt(e.which) - 48), child.id, child.getAttribute("data-value"), parseInt(e.which))
-                }                
+                }
             }
         }, false);
-
-        let interval = setInterval(() => {
-            incrementValue()
-        }, 50);  // Execute
-
-
     </script>
 </head>
 
 <body id="bodyID">
     <div class="buttonsHolder" , id="buttonsHolder">
-       
-<!--113 x 88 -->
-        <div id="num49" class="buttonStyling catIconStyling catIcon" onclick="spawnGato('#gato1', 'num49', 50, 49)" data-value="50">
+        <!--113 x 88 -->
+        <div id="num49" class="buttonStyling catIconStyling catIcon" 
+        onclick="spawnGato('#gato1', 'num49', 50, 49)"
+            data-value="50">
             <p class="costText" id="text49"> ¢50</p>
         </div>
 
-        <div id="num50" class="buttonStyling catIconStyling tankCatIcon" onclick="spawnGato('#gato2', 'num50', 100, 50)" data-value="100">
+        <div id="num50" class="buttonStyling catIconStyling tankCatIcon"
+         onclick="spawnGato('#gato2', 'num50', 100, 50)"
+            data-value="100">
             <p class="costText" id="text50"> ¢100</p>
         </div>
 
-        <div id="num51" class="buttonStyling catIconStyling axeCatIcon" onclick="spawnGato('#gato3', 'num51', 150, 51)" data-value="150">
+        <div id="num51" class="buttonStyling catIconStyling axeCatIcon" 
+        onclick="spawnGato('#gato3', 'num51', 150, 51)"
+            data-value="150">
             <p class="costText" id="text51"> ¢150</p>
         </div>
-        
-        <div id="num52" class="buttonStyling catIconStyling grossCatIcon" onclick="spawnGato('#gato4', 'num52', 600, 52)" data-value="600" >
+
+        <div id="num52" class="buttonStyling catIconStyling grossCatIcon"
+            onclick="spawnGato('#gato4', 'num52', 600, 52)" data-value="600">
             <p class="costText" id="text52"> ¢600</p>
         </div>
 
-        <div id="num53" class="buttonStyling catIconStyling kingDragonIcon" onclick="spawnGato('#gato5', 'num53', 1500, 53)" data-value="1500" >
-            <p class="costText" id="text53"> ¢1500</p> 
+        <div id="num53" class="buttonStyling catIconStyling kingDragonIcon"
+            onclick="spawnGato('#gato5', 'num53', 1500, 53)" data-value="1500">
+            <p class="costText" id="text53"> ¢1500</p>
         </div>
-      
+
     </div>
 
     <div class="cashHolder">
@@ -92,7 +120,6 @@
         <p class="bankCostText" id="bankCost"> ¢560 </p>
     </div>
 
-    <!-- onfinish="javascript:alert('event has been triggered');" -->
     <marquee id="gato1" class="marquee1 hidden" truespeed scrolldelay="70" scrollamount="20px" loop="1">
         <img src="catpng.png">
     </marquee>
@@ -101,19 +128,26 @@
         <img class="tankcatSize" src="tankpng.png">
     </marquee>
 
-    <marquee id="gato3" class="marquee5 hidden" truespeed scrolldelay="70" scrollamount="15px" loop="1"> 
+    <marquee id="gato3" class="marquee5 hidden" truespeed scrolldelay="70" scrollamount="15px" loop="1">
         <img class="axecatSize" src="axepng.png">
     </marquee>
 
-    <marquee id="gato4" class="marquee4 hidden" truespeed scrolldelay="70" scrollamount="10px" loop="1"> 
+    <marquee id="gato4" class="marquee4 hidden" truespeed scrolldelay="70" scrollamount="10px" loop="1">
         <img class="grosscatSize" src="./grosscatpng.png">
     </marquee>
 
-    <marquee id="gato5" class="marquee3 hidden" truespeed scrolldelay="70" scrollamount="8px" loop="1"> 
+    <marquee id="gato5" class="marquee3 hidden" truespeed scrolldelay="70" scrollamount="8px" loop="1">
         <img class="kingdragonSize" src="kingdragonpng.png">
     </marquee>
 
+    <div id="enemyHolder">
+        <img src="./dogeDark.png" alt="click on me quickly!!" id="dogeDark"  class="dogeDarkSize dodgeDarkPosition hidden" 
+        data-state="true" onclick="getRidOf(this)">
+    </div>
 
+    <div id="alertHolder">
+        <p class="alertText" id="alertText"> </p>
+    </div>
 
 </body>
 

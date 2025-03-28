@@ -12,8 +12,13 @@ var konamiCode = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 
 // a value that increments up each time a correct key is pressed
 var konamiCodePosition = 0;
 var konamiCodeActivated = false;
+var enemySpawnInterval = 3000
+var enemyAttackEnabled = false
 
+var eventDuration = 20000
+var eventTime = 40000
 
+// spawns a gato. 
 function spawnGato(sentId, buttonId, cost, numberSent) {
   console.log(sentId, buttonId)
 
@@ -34,6 +39,7 @@ function spawnGato(sentId, buttonId, cost, numberSent) {
     button.animate({
       transform: "scale(0.7) rotate(0deg)"
     }, 35);
+
     button.animate({
       transform: "scale(1.001) rotate(0deg)"
     }, 250);
@@ -64,16 +70,21 @@ function spawnGato(sentId, buttonId, cost, numberSent) {
   return
 };
 
+// ugprades the bank, causing more money to be generated and increasing the amount the person can hold
 function upgradeBank() {
-  console.log("hello!!")
 
   //console.log("hi")
   if (cash >= currentBankCost && level < levelCap) {
     cash -= currentBankCost
     currentBankCost += 560
     level += 1
-    cashEarned += 1
+    cashEarned += 1 
     cashCap += 1500
+    if (level > 8) {
+      cashEarned += Math.floor(cashEarned/20)
+    } 
+
+
     //console.log("h")
     let button = document.querySelector('#bankButton')//.querySelector('#49')
     let buttonLevel = button.querySelector('#bankLevel')
@@ -116,27 +127,8 @@ function upgradeBank() {
   return
 };
 
-
-
-document.addEventListener('keydown', function(e) {
-
-  var key = allowedKeys[e.keyCode];
-  var requiredKey = konamiCode[konamiCodePosition];
-
-// incremends a value if the correct keyis pressed in the sequence above, which then resets if an incorrect statement is pressed.
-  if (key == requiredKey) {
-    konamiCodePosition++;
-    if (konamiCodePosition == konamiCode.length) {
-      activateCheats();
-      konamiCodePosition = 0;
-    }
-  } else {
-    konamiCodePosition = 0;
-  }
-});
-
-// does the actual function of changing the background image to a diffrent gradient
-function activateCheats() {
+// does the actual function of changing the background image to a diffrent bg image
+function activateKomi() {
   
   if (konamiCodeActivated == false) {
       konamiCodeActivated = true
@@ -175,3 +167,128 @@ function activateCheats() {
   }
  
 }
+
+// gets random num between numbers
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRidOf(item) {
+  let body = document.querySelector('#bodyID')
+  console.log("ouch!")
+  item.setAttribute("data-state", "false")
+  body.removeChild(item)
+  cash += 100
+
+}
+
+// stupid konomi code thing that i have, source code was somewhere from the internet i think
+document.addEventListener('keydown', function(e) {
+
+  var key = allowedKeys[e.keyCode];
+  var requiredKey = konamiCode[konamiCodePosition];
+
+// incremends a value if the correct key is pressed in the sequence above, which then resets if an incorrect statement is pressed.
+  if (key == requiredKey) {
+    konamiCodePosition++;
+    if (konamiCodePosition == konamiCode.length) {
+      activateKomi();
+      konamiCodePosition = 0;
+    }
+  } else {
+    konamiCodePosition = 0;
+  }
+});
+
+// spawns enemies every once and a while
+let enemyInterval = setInterval(() => {
+  if (enemyAttackEnabled == true) {
+    console.log("spawn an enemy")
+
+
+    let divHolder = document.querySelector('#enemyHolder')//.querySelector('#49')
+    let enemy = divHolder.querySelector('#dogeDark')
+    let body = document.querySelector('#bodyID')
+    enemySpawnInterval = getRandomInt(2000,4000)
+  
+    for (let i = 0; i < getRandomInt(3,15); i++) {
+      const newClone = enemy.cloneNode(true);
+  
+      const lifeTime = 10000
+    
+      const randX = Math.floor(getRandomInt(1,80));
+      const randY = Math.floor(getRandomInt(1,65));
+      const randomRotation = Math.floor(getRandomInt(-180,180));
+    
+      newClone.setAttribute('id', "newClone");
+      newClone.classList.remove("hidden")
+      document.body.appendChild(newClone);
+      //button.classList.toggle("half");
+      newClone.classList.add("angryDoge")
+      newClone.style.position = 'absolute';
+      newClone.style.left =  newClone.style.left +  (randX + '%');
+      newClone.style.top = newClone.style.top + (randY + '%');
+      newClone.style.transform = `rotate(${randomRotation}deg)`;
+    
+    
+      newClone.animate({
+        transform: "scale(0.7) "
+      }, lifeTime);
+    
+    
+      setTimeout(() => {
+        if (newClone.getAttribute("data-state") == "true") {
+          console.log("OOM NOM NOM")
+          body.removeChild(newClone)
+          cash -= 1000 + (cashCap/2)
+        }
+    
+      }, lifeTime)
+    }
+  
+  }
+
+}, enemySpawnInterval);  
+
+
+let enemyWaves = setInterval(() => {
+  if (enemyAttackEnabled == false) {
+
+    setTimeout(function() { disableAlertText(); }, eventDuration);
+    console.log("event triggered")
+    enemyAttackEnabled = true
+    var duration = 400
+  
+    //text.style.background = "linear-gradient(180deg, rgb(253, 179, 7), rgb(244, 211, 101))"
+    alertText.innerHTML = "DOGE ATTACK IN PROGRESS WATCH OUT"
+    alertText.style.visibility = (alertText.style.visibility == 'hidden' ? '' : 'hidden');
+    var executed = 0
+    //text.setAttribute('id', "blinking")
+    function blink() {
+        if (executed < 11) {
+            executed += 1;
+            alertText.style.visibility = (alertText.style.visibility == 'hidden' ? '' : 'hidden');
+        } 
+    };
+    //setInterval(blink, 1)
+    setInterval(blink, duration)
+  }
+},eventTime);
+
+
+function disableAlertText() {
+  console.log("hello event disabled")
+  enemyAttackEnabled = false
+  let alertHolder = document.querySelector('#alertHolder')
+
+  console.log(alertHolder)
+  let alertText = alertHolder.querySelector('#alertText')
+  
+  alertText.style.visibility = 'hidden'
+}
+
+
+
+setTimeout(function() { disableAlertText(); }, 80);
